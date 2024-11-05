@@ -9,7 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchUserDetails = async () => {
-      const res = await axios.get("podcast-41hysnd2o-sagars-projects-d57435ad.vercel.app/api/v1/user-details", {
+      const res = await axios.get("http://localhost:1000/api/v1/user-details", {
         withCredentials:true,
       });
       setUserData(res.data.user);
@@ -17,7 +17,7 @@ const Header = () => {
     fetchUserDetails();
   }, []);
   const LogoutHandler = async()=> {
-    const res=  await axios.post("podcast-41hysnd2o-sagars-projects-d57435ad.vercel.app/api/v1/logout",{
+    const res=  await axios.post("http://localhost:1000/api/v1/logout",{
       withCredentials : true,
 
     });

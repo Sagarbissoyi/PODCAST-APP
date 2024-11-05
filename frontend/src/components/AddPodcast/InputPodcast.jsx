@@ -62,7 +62,7 @@ data.append("frontImage",frontImage);
 data.append("audioFile",audioFile);
 
 try {
-  const res = await axios.post("podcast-41hysnd2o-sagars-projects-d57435ad.vercel.app/api/v1/add-podcast",
+  const res = await axios.post("http://localhost:1000/api/v1/add-podcast",
     data,
   {
     headers:{

@@ -18,7 +18,7 @@ const App = () => {
 useEffect(() => {
 const fetch = async () => {
   try {
-  const res = await axios.get("podcast-41hysnd2o-sagars-projects-d57435ad.vercel.app/api/v1/check-cookie"
+  const res = await axios.get("http://localhost:1000/api/v1/check-cookie"
     ,{withCredentials:true}
   ) ;
     if(res.data.message == true)

@@ -21,7 +21,7 @@ const Signup = () => {
   const handleSubmit = async () => {
     try {
       const res = await axios.post(
-        "https://podcast-app-txd7.onrender.com/api/v1/sign-up",
+        "podcast-41hysnd2o-sagars-projects-d57435ad.vercel.app/api/v1/sign-up",
         Values
       );
       

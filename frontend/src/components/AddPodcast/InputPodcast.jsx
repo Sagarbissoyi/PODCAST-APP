@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import {toast, ToastContainer} from "react-toastify";
 
 
 const InputPodcast = () => {
@@ -71,15 +71,24 @@ try {
     withCredentials:true,
   }
 );
-console.log(res.data);
+toast.success(res.data.message);
 } catch (error) {
-  console.log(error)
+  toast.error(error.response.data.message);
 }
-
+finally {
+  setInputs({
+    title : '', 
+    description: '',
+     category:''
+  });
+  setfrontImage(null);
+  setaudioFile(null);
+}
   }
 
   return (
     <div className="my-4 px-4 lg:px-12">
+      <ToastContainer/>
       <h1 className="text-2xl font-semibold">Create your podcast</h1>
       <div className="mt-5 flex flex-col lg:flex-row items-center justify-between gap-4">
         <div className="w-full lg:w-2/6 flex items-center justify-center lg:justify-start">

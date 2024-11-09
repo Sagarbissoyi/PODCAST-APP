@@ -18,6 +18,11 @@ import DescriptionPage from './pages/DescriptionPage.jsx';
 
 
 
+///////////////////////   ADD SOME NEW FEATURES /////
+import OnDelete from './pages/onDelete.jsx';          // Import OnDelete component
+import OnEdit from './pages/OnEdit.jsx'; // Import OnEdit component
+
+
 
 
 const App = () => {
@@ -52,7 +57,8 @@ fetch();
           <Route path='/all-podcasts' element={<AllPodcasts/>}/>
           <Route path='/categories/:cat' element={<CategoriesPage/>} />
           <Route path='/description/:id' element={<DescriptionPage/>} />
-
+          <Route path='/delete-podcast/:id' element={<OnDelete/>} /> {/* Add OnDelete route */}
+          <Route path='/edit-podcast/:id' element={<OnEdit />} /> {/* Add OnEdit route */}
 
           {/* <Route path='/remove-podcast/:id' element={<RemovePodcasts/>} />//////////ADD NEW FEATURES/////// */}
           

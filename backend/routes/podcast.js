@@ -4,7 +4,7 @@ const Category = require("../models/category");
 const User = require("../models/user");
 const Podcast = require("../models/podcast");
 const router = require("express").Router();
-
+const express = require("express");////////////////////////////////////////
 
 
 /////////////////////////////////////////this code was error showing --- axios error(internal servar error)//////////////////////////////////
@@ -100,11 +100,7 @@ router.post("/add-podcast", authMiddleware, upload, async (req, res) => {
 });
 
 
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 //get all podcast
@@ -218,42 +214,292 @@ module.exports = router;
 
 
 
-/////////////////////         ADD NEW FEATURES    (REMOVE PODCASTS) /////////////////////////////
+/////////////////////////////////              NEW FEATURES ADD DELETE PODCAST                 /////////////////////////////
 
 
 
-// remove.podcast
-// router.delete("/remove-podcast/:id", authMiddleware, async (req, res) => {
+// // delete.podcast
+// router.delete("/delete-podcast/:id", authMiddleware, async (req, res) => {
 //     try {
-//         const podcastId = req.params.id; // Get the podcast ID from the request parameters
-//         const { user } = req; // Ensure user is populated by authMiddleware
-        
+//         const { id } = req.params;
+
+//         // Ensure user is populated by authMiddleware
+//         const { user } = req;
 //         if (!user) {
 //             return res.status(401).json({ message: "Unauthorized" });
 //         }
 
 //         // Find the podcast by ID
-//         const podcast = await Podcast.findById(podcastId);
+//         const podcast = await Podcast.findById(id);
 //         if (!podcast) {
 //             return res.status(404).json({ message: "Podcast not found" });
 //         }
 
 //         // Check if the user is the owner of the podcast
-//         if (podcast.user.toString() !== user._id.toString()) {
-//             return res.status(403).json({ message: "You do not have permission to delete this podcast" });
+//         if (!podcast.user.equals(user._id)) {
+//             return res.status(403).json({ message: "You are not authorized to delete this podcast" });
 //         }
 
 //         // Remove the podcast from the database
-//         await Podcast.findByIdAndDelete(podcastId);
+//         await Podcast.findByIdAndDelete(id);
 
-//         // Optionally, remove the podcast ID from the associated category and user
-//         await Category.findByIdAndUpdate(podcast.category, { $pull: { podcasts: podcastId } });
-//         await User.findByIdAndUpdate(user._id, { $pull: { podcasts: podcastId } });
+//         // Remove the podcast reference from the associated category
+//         await Category.findByIdAndUpdate(podcast.category, { $pull: { podcasts: podcast._id } });
 
-//         res.status(200).json({ message: "Podcast removed successfully" });
+//         // Remove the podcast reference from the user
+//         await User.findByIdAndUpdate(user._id, { $pull: { podcasts: podcast._id } });
+
+//         res.status(200).json({ message: "Podcast deleted successfully" });
 //     } catch (error) {
-//         console.error("Error removing podcast:", error); // Log the error for debugging
-//         return res.status(500).json({ message: "Failed to remove podcast" });
+//         console.error("Error deleting podcast:", error); // Log the error for debugging
+//         return res.status(500).json({ message: "Failed to delete podcast", error: error.message });
+//     }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////  SOME CURRECTION ??????????
+
+
+
+
+// Edit a specific podcast
+router.put("/edit-podcast/:id", authMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, description } = req.body;
+
+        // Ensure user is populated by authMiddleware
+        const { user } = req;
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        // Find the podcast by ID
+        const podcast = await Podcast.findById(id);
+        if (!podcast) {
+            return res.status(404).json({ message: "Podcast not found" });
+        }
+
+        // Check if the user is the owner of the podcast
+        if (!podcast.user.equals(user._id)) {
+            return res.status(403).json({ message: "You are not authorized to edit this podcast" });
+        }
+
+        // Update the podcast
+        podcast.title = title;
+        podcast.description = description;
+        await podcast.save();
+
+        res.status(200).json(podcast);
+    } catch (error) {
+        console.error("Error editing podcast:", error);
+        return res.status(500).json({ message: "Failed to edit podcast", error: error.message });
+    }
+});
+ 
+
+
+
+
+// /////delete podsast
+// router.delete("/delete-podcast/:id", authMiddleware, async (req, res) => {
+//     try {
+//         const { id } = req.params;
+
+//         // Ensure user is populated by authMiddleware
+//         const { user } = req;
+//         if (!user) {
+//             return res.status(401).json({ message: "Unauthorized" });
+//         }
+
+//         // Find the podcast by ID
+//         const podcast = await Podcast.findById(id);
+//         if (!podcast) {
+//             return res.status(404).json({ message: "Podcast not found" });
+//         }
+
+//         // Check if the user is the owner of the podcast
+//         if (!podcast.user.equals(user._id)) {
+//             return res.status(403).json({ message: "You are not authorized to delete this podcast" });
+//         }
+
+//         // Delete the podcast
+//         await Podcast.findByIdAndDelete(id);
+
+//         // Optionally, remove the podcast reference from the associated category
+//         await Category.findByIdAndUpdate(podcast.category, { $pull: { podcasts: podcast._id } });
+
+//         // Optionally, remove the podcast reference from the user
+//         await User.findByIdAndUpdate(user._id, { $pull: { podcasts: podcast._id } });
+
+//         res.status(200).json({ message: "Podcast deleted successfully" });
+//     } catch (error) {
+//         console.error("Error deleting podcast:", error);
+//         return res.status(500).json({ message: "Failed to delete podcast", error: error.message });
+//     }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////              NEW FEATURES ADD DELETE PODCAST                 /////////////////////////////
+
+
+
+// // delete.podcast
+// router.delete("/delete-podcast/:id", authMiddleware, async (req, res) => {
+//     try {
+//         const { id } = req.params;
+
+//         // Ensure user is populated by authMiddleware
+//         const { user } = req;
+//         if (!user) {
+//             return res.status(401).json({ message: "Unauthorized" });
+//         }
+
+//         // Find the podcast by ID
+//         const podcast = await Podcast.findById(id);
+//         if (!podcast) {
+//             return res.status(404).json({ message: "Podcast not found" });
+//         }
+
+//         // Check if the user is the owner of the podcast
+//         if (!podcast.user.equals(user._id)) {
+//             return res.status(403).json({ message: "You are not authorized to delete this podcast" });
+//         }
+
+//         // Remove the podcast from the database
+//         await Podcast.findByIdAndDelete(id);
+
+//         // Remove the podcast reference from the associated category
+//         await Category.findByIdAndUpdate(podcast.category, { $pull: { podcasts: podcast._id } });
+
+//         // Remove the podcast reference from the user
+//         await User.findByIdAndUpdate(user._id, { $pull: { podcasts: podcast._id } });
+
+//         res.status(200).json({ message: "Podcast deleted successfully" });
+//     } catch (error) {
+//         console.error("Error deleting podcast:", error); // Log the error for debugging
+//         return res.status(500).json({ message: "Failed to delete podcast", error: error.message });
+//     }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+///////////////////////////////////  SOME CURRECTION ??????????
+
+
+
+
+// Edit a specific podcast
+// router.put("/edit-podcast/:id", authMiddleware, async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const { title, description } = req.body;
+
+//         // Ensure user is populated by authMiddleware
+//         const { user } = req;
+//         if (!user) {
+//             return res.status(401).json({ message: "Unauthorized" });
+//         }
+
+//         // Find the podcast by ID
+//         const podcast = await Podcast.findById(id);
+//         if (!podcast) {
+//             return res.status(404).json({ message: "Podcast not found" });
+//         }
+
+//         // Check if the user is the owner of the podcast
+//         if (!podcast.user.equals(user._id)) {
+//             return res.status(403).json({ message: "You are not authorized to edit this podcast" });
+//         }
+
+//         // Update the podcast
+//         podcast.title = title;
+//         podcast.description = description;
+//         await podcast.save();
+
+//         res.status(200).json(podcast);
+//     } catch (error) {
+//         console.error("Error editing podcast:", error);
+//         return res.status(500).json({ message: "Failed to edit podcast", error: error.message });
+//     }
+// });
+ 
+
+
+
+
+// /////delete podsast
+// router.delete("/delete-podcast/:id", authMiddleware, async (req, res) => {
+//     try {
+//         const { id } = req.params;
+
+//         // Ensure user is populated by authMiddleware
+//         const { user } = req;
+//         if (!user) {
+//             return res.status(401).json({ message: "Unauthorized" });
+//         }
+
+//         // Find the podcast by ID
+//         const podcast = await Podcast.findById(id);
+//         if (!podcast) {
+//             return res.status(404).json({ message: "Podcast not found" });
+//         }
+
+//         // Check if the user is the owner of the podcast
+//         if (!podcast.user.equals(user._id)) {
+//             return res.status(403).json({ message: "You are not authorized to delete this podcast" });
+//         }
+
+//         // Delete the podcast
+//         await Podcast.findByIdAndDelete(id);
+
+//         // Optionally, remove the podcast reference from the associated category
+//         await Category.findByIdAndUpdate(podcast.category, { $pull: { podcasts: podcast._id } });
+
+//         // Optionally, remove the podcast reference from the user
+//         await User.findByIdAndUpdate(user._id, { $pull: { podcasts: podcast._id } });
+
+//         res.status(200).json({ message: "Podcast deleted successfully" });
+//     } catch (error) {
+//         console.error("Error deleting podcast:", error);
+//         return res.status(500).json({ message: "Failed to delete podcast", error: error.message });
 //     }
 // });
 
@@ -275,53 +521,68 @@ module.exports = router;
 
 
 
-//////////////// create new file //////////////////////////////
 
 
-// const request = require("supertest");
-// const app = require("../app"); // Adjust the path to your Express app
-// const mongoose = require("mongoose");
-// const Podcast = require("../models/Podcast"); // Adjust the path to your Podcast model
-// const User = require("../models/User"); // Adjust the path to your User model
 
-// describe("DELETE /remove-podcast/:id", () => {
-//     let server;
-//     let token;
-//     let podcastId;
 
-//     beforeAll(async () => {
-//         server = app.listen(3000); // Start the server
-//         // Create a test user and authenticate to get a token
-//         const user = await User.create({ username: "testuser", password: "password" });
-//         token = "Bearer " + user.generateAuthToken(); // Adjust according to your auth logic
 
-//         // Create a test podcast
-//         const podcast = await Podcast.create({ title: "Test Podcast", user: user._id });
-//         podcastId = podcast._id;
-//     });
 
-//     afterAll(async () => {
-//         await Podcast.deleteMany({});
-//         await User.deleteMany({});
-//         mongoose.connection.close();
-//         server.close();
-//     });
 
-//     it("should remove the podcast if the user is authorized", async () => {
-//         const res = await request(server)
-//             .delete(`/remove-podcast/${podcastId}`)
-//             .set("Authorization", token);
 
-//         expect(res.statusCode).toBe(200);
-//         expect(res.body.message).toBe("Podcast removed successfully");
 
-//         const deletedPodcast = await Podcast.findById(podcastId);
-//         expect(deletedPodcast).toBeNull();
-//     });
 
-//     it("should return 404 if the podcast does not exist", async () => {
-//         const res = await request(server)
-//             .delete(`/remove-p
+
+
+
+
+
+
+
+
+router.delete("/delete-podcast/:id", authMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Ensure user is populated by authMiddleware
+        const { user } = req;
+        if (!user) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        // Find the podcast by ID
+        const podcast = await Podcast.findById(id);
+        if (!podcast) {
+            return res.status(404).json({ message: "Podcast not found" });
+        }
+
+        // Check if the user is the owner of the podcast
+        if (!podcast.user.equals(user._id)) {
+            return res.status(403).json({ message: "You are not authorized to delete this podcast" });
+        }
+
+        // Delete the podcast
+        await Podcast.findByIdAndDelete(id);
+
+        // Optionally, remove the podcast reference from the associated category
+        await Category.findByIdAndUpdate(podcast.category, { $pull: { podcasts: podcast._id } });
+
+        // Optionally, remove the podcast reference from the user
+        await User.findByIdAndUpdate(user._id, { $pull: { podcasts: podcast._id } });
+
+        res.status(200).json({ message: "Podcast deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting podcast:", error.message);
+        return res.status(500).json({ message: "Failed to delete podcast", error: error.message });
+    }
+});
+
+
+
+
+
+
+
+
 
 
 

@@ -79,9 +79,9 @@ const Categories = () => {
       img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiLB4s0L9-KE8frlPtgr4sEmUQpyVGlud9q249BRYXlzzqlAi8oBrZU489bI9I81XkkCc&usqp=CAU ",
     },
     {
-      name: "Business ",
+      name: "Bussiness ",
       color: " bg-green-200",
-      to: "/categories/Business ",
+      to: "/categories/Bussiness ",
       img: " https://img.freepik.com/free-vector/hand-drawn-bussiness-innovation_23-2149153450.jpg",
     },
     {
@@ -97,9 +97,9 @@ const Categories = () => {
       img: " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6abnsHmeFbWujFSzvsH_ngeFxw-crjDCS4A&s.jpg",
     },
     {
-      name: "Government ",
+      name: "Governement ",
       color: " bg-indigo-200",
-      to: "/categories/Government ",
+      to: "/categories/Governement ",
       img: "https://www.whitehouse.gov/wp-content/uploads/2021/01/us-capitol.jpg ",
     },
     

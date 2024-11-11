@@ -99,6 +99,100 @@ router.post("/add-podcast", authMiddleware, upload, async (req, res) => {
     }
 });
 
+/////////////////////////////////////////////////
+
+// Add Podcast Endpoint
+// router.post("/add-podcast", authMiddleware, upload, async (req, res) => {
+//     try {
+//         const { title, description, category } = req.body;
+
+//         // Check if files are present
+//         const frontImage = req.files["frontImage"] ? req.files["frontImage"][0].path : null;
+//         const audioFile = req.files["audioFile"] ? req.files["audioFile"][0].path : null;
+
+//         // Log incoming request for debugging
+//         console.log('Request body:', req.body);
+//         console.log('Request files:', req.files);
+
+//         // Validate input fields
+//         if (!title) return res.status(400).json({ message: "Title is required" });
+//         if (!description) return res.status(400).json({ message: "Description is required" });
+//         if (!category) return res.status(400).json({ message: "Category is required" });
+//         if (!frontImage) return res.status(400).json({ message: "Front image is required" });
+//         if (!audioFile) return res.status(400).json({ message: "Audio file is required" });
+
+//         const { user } = req; // Ensure user is populated by authMiddleware
+//         if (!user) {
+//             return res.status(401).json({ message: "Unauthorized" });
+//         }
+
+//         // Check if category exists
+//         const cat = await Category.findOne({ categoryName: category });
+//         if (!cat) {
+//             return res.status(400).json({ message: "No category found" });
+//         }
+
+//         const catid = cat._id;
+//         const userid = user._id;
+
+//         // Check if a podcast with the same title already exists
+//         const existingPodcast = await Podcast.findOne({ title });
+//         if (existingPodcast) {
+//             return res.status(400).json({ message: "A podcast with this title already exists." });
+//         }
+
+//         // Create a new podcast instance
+//         const newPodcast = new Podcast({ 
+//             title, 
+//             description, 
+//             category: catid, 
+//             frontImage, 
+//             audioFile, 
+//             user: userid 
+//         });
+
+//         // Save the podcast and handle potential errors
+//         try {
+//             await newPodcast.save();
+//         } catch (dbError) {
+//             console.error("Database error:", dbError.message); // Log the error message
+//             return res.status(500).json({ message: "Database error while adding podcast", error: dbError.message });
+//         }
+
+//         // Update category and user with the new podcast ID
+//         await Category.findByIdAndUpdate(catid, { $push: { podcasts: newPodcast._id } });
+//         await User.findByIdAndUpdate(userid, { $push: { podcasts: newPodcast._id } });
+
+//         res.status(201).json({ message: "Podcast added successfully" });
+//     } catch (error) {
+//         console.error("Error adding podcast:", error); // Log the error for debugging
+//         return res.status(500).json({ message: "Failed to add podcast" });
+//     }
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -575,35 +669,3 @@ router.delete("/delete-podcast/:id", authMiddleware, async (req, res) => {
         return res.status(500).json({ message: "Failed to delete podcast", error: error.message });
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

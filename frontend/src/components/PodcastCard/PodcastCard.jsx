@@ -128,11 +128,6 @@
 
 
 
-
-
-
-
-
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
@@ -145,6 +140,9 @@ const PodcastCard = ({ items, onDelete }) => {
             onDelete(items._id); // Call the onDelete function passed as a prop
         }
     };
+
+    // Check if items and its properties exist
+    const hasCategory = items && items.category && items.category.categoryName;
 
     return (
         <div>
@@ -162,7 +160,7 @@ const PodcastCard = ({ items, onDelete }) => {
                     {items.description.slice(0, 50)}
                 </div>
                 <div className='mt-2 bg-orange-100 text-orange-700 border border-orange-700 rounded-full px-4 py-2 text-center'>
-                    {items.category.categoryName}
+                    {hasCategory ? items.category.categoryName : 'No Category'}
                 </div>
                 <div className='mt-2'>
                     <Link 

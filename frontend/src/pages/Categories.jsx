@@ -73,25 +73,25 @@ import { Link } from "react-router-dom";
 const Categories = () => {
   const cat = [
     {
-      name: "Comedy ",
+      name: "Comedy",
       color: " bg-purple-200",
-      to: "/categories/Comedy ",
+      to: "/categories/Comedy",
       img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiLB4s0L9-KE8frlPtgr4sEmUQpyVGlud9q249BRYXlzzqlAi8oBrZU489bI9I81XkkCc&usqp=CAU ",
     },
     {
-      name: "Bussiness ",
+      name: "Bussiness",
       color: " bg-green-200",
       to: "/categories/Bussiness ",
       img: " https://img.freepik.com/free-vector/hand-drawn-bussiness-innovation_23-2149153450.jpg",
     },
     {
-      name: "Education ",
+      name: "Education",
       color: " bg-red-200",
       to: "/categories/Education ",
       img: " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwPhUBK1c59nkN1XHQu410qHhoC2vX4e37CA&s.jpg",
     },
     {
-      name: "Hobbies ",
+      name: "Hobbies",
       color: " bg-zinc-200",
       to: "/categories/Hobbies ",
       img: " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6abnsHmeFbWujFSzvsH_ngeFxw-crjDCS4A&s.jpg",

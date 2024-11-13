@@ -129,12 +129,20 @@
 
 
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
-
+import { playerActions } from '../../store/player';
 const PodcastCard = ({ items, onDelete }) => {
+    const dispatch = useDispatch();
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
+const handlePlay = (e) =>{
+    if(isLoggedIn) {
+        e.preventDefault();
+    dispatch(playerActions.setDiv());
+    dispatch(playerActions.changeImage(`http://localhost:1000/${items.frontImage}`));
+    dispatch(playerActions.changeSong(`http://localhost:1000/${items.audioFile}`));
+    }
+};
     const handleDelete = () => {
         if (onDelete) {
             onDelete(items._id); // Call the onDelete function passed as a prop
@@ -165,7 +173,8 @@ const PodcastCard = ({ items, onDelete }) => {
                 <div className='mt-2'>
                     <Link 
                         to={isLoggedIn ? "#" : "/signup"} 
-                        className='bg-green-900 text-white px-4 py-2 rounded mt-2 flex items-center justify-center hover:bg-green-800 transition-all duration-300'>
+                        className='bg-green-900 text-white px-4 py-2 rounded mt-2 flex items-center justify-center hover:bg-green-800 transition-all duration-300'
+                        onClick={handlePlay}>
                         Play Now
                     </Link>
                 </div>

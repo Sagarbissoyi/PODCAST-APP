@@ -22,7 +22,6 @@ const Navbar = () => {
       name: "All Podcasts",
       path: "/all-podcasts",
     },
-    
   ];
 
   const closeMobileNav = () => {
@@ -30,7 +29,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="px-4 md:px-8 lg:px-12 py-2 relative">
+    <nav className="px-4 md:px-8 lg:px-12 py-2 relative z-[1]">
       <div className="flex items-center justify-between">
         <div className="logo brand-name w-2/6 flex items-center gap-4">
           <img
@@ -53,30 +52,37 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-<div className="hidden w-2/6 lg:flex items-center justify-end">
-          {!isLoggedIn && (<>
-            <Link to="/login" className="px-6 py-3 border border-black rounded-full">
-            Login
-          </Link>
-          <Link to="/signup" className="ms-4 px-6 py-3 bg-black text-white rounded-full">
-            Signup
-          </Link>
-          </>
+        <div className="hidden w-2/6 lg:flex items-center justify-end">
+          {!isLoggedIn && (
+            <>
+              <Link
+                to="/login"
+                className="px-6 py-3 border border-black rounded-full"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="ms-4 px-6 py-3 bg-black text-white rounded-full"
+              >
+                Signup
+              </Link>
+            </>
           )}
-          {isLoggedIn &&  
-          <Link
-           to="/profile" 
-           className="ms-4 px-6 py-3 bg-black text-white rounded-full">
-            Profile
-          </Link>
-          }
-
-
-
+          {isLoggedIn && (
+            <Link
+              to="/profile"
+              className="ms-4 px-6 py-3 bg-black text-white rounded-full"
+            >
+              Profile
+            </Link>
+          )}
         </div>
-        <div className="w-4/6 flex items-center justify-end lg:hidden z-50">
+        <div className="w-4/6 flex items-center justify-end lg:hidden z-[2]">
           <button
-            className={`text-4xl ${MobileNav ? "rotate-360" : "rotate-180"} transition-all duration-300`}
+            className={`text-4xl ${
+              MobileNav ? "rotate-360" : "rotate-180"
+            } transition-all duration-300`}
             onClick={() => setMobileNav(!MobileNav)}
           >
             {MobileNav ? <RxCross2 /> : <IoReorderThreeOutline />}
@@ -85,9 +91,11 @@ const Navbar = () => {
       </div>
 
       {/* {mobile nav} */}
-      <div className={`fixed top-0 left-0 w-full h-screen bg-blue-100 
-        ${MobileNav ? "translate-y-0" : "translate-y-[-100%]"}
-        transition-transform duration-500 ease-in-out`}>
+      <div
+        className={`fixed top-0 left-0 w-full h-screen bg-blue-100 lg:hidden
+        ${MobileNav ? "translate-y-0" : "translate-y-[-100%] hidden"}
+        transition-transform duration-500 ease-in-out`}
+      >
         <div className="h-full flex flex-col items-center justify-center">
           {navLinks.map((items, i) => (
             <Link
@@ -99,20 +107,33 @@ const Navbar = () => {
               {items.name}
             </Link>
           ))}
-          <Link
-            to="/login"
-            className="mb-12 text-3xl hover:font-semibold transition-all duration-300"
-            onClick={closeMobileNav}
-          >
-            Login
-          </Link>
-          <Link
-            to="/signup"
-            className="mb-12 text-3xl hover:font-semibold transition-all duration-300"
-            onClick={closeMobileNav}
-          >
-            Signup
-          </Link>
+          {!isLoggedIn ? (
+            <>
+              {" "}
+              <Link
+                to="/login"
+                className="mb-12 text-3xl hover:font-semibold transition-all duration-300"
+                onClick={closeMobileNav}
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="mb-12 text-3xl hover:font-semibold transition-all duration-300"
+                onClick={closeMobileNav}
+              >
+                Signup
+              </Link>
+            </>
+          ) : (
+            <Link
+              to="/profile"
+              className="mb-12 text-3xl hover:font-semibold transition-all duration-300"
+              onClick={closeMobileNav}
+            >
+              Profile
+            </Link>
+          )}
         </div>
       </div>
     </nav>
